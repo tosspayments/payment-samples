@@ -1,4 +1,4 @@
-# 토스페이먼츠 결제 연동 샘플 프로젝트
+# 토스페이먼츠 결제 API 연동 샘플 프로젝트
 
 토스페이먼츠에서 제공하는 API로 연동할 수 있는 기능을 샘플 프로젝트로 시작해보세요.
 
@@ -13,16 +13,6 @@
 - [`/payment-keyin-api`](https://github.com/tosspayments/payment-samples/tree/main/payment-keyin-api): 카드 번호 결제 API 연동 샘플
 
 - [`/payment-virtualaccount-api`](https://github.com/tosspayments/payment-samples/tree/main/payment-virtualaccount-api): 가상계좌 발급 연동 샘플
-
-## 결제창 SDK
-
-- [`/payment-window`](https://github.com/tosspayments/payment-samples/tree/main/payment-window): 결제창 연동 샘플
-
-- [`/payment-direct-window`](https://github.com/tosspayments/payment-samples/tree/main/payment-direct-window): 앱카드 결제 연동 샘플
-
-- [`/payment-easypay-window`](https://github.com/tosspayments/payment-samples/tree/main/payment-easypay-window): 간편결제 연동 샘플
-
-- [`/payment-window-all`](https://github.com/tosspayments/payment-samples/tree/main/payment-window-all): 앱카드, 간편결제, 기타 결제수단 결제창 연동 샘플
 
 ## 문의
 
