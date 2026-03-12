@@ -4,7 +4,7 @@
 
 각 레포지토리에서 프로그래밍 언어 별 샘플을 확인할 수 있습니다.
 
-## 결제 APIkk
+## 결제 API
 
 - [`/payment-cancel-api`](https://github.com/tosspayments/payment-samples/tree/main/payment-cancel-api): 결제 취소 API 연동 샘플
 
