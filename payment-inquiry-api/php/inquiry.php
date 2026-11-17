@@ -1,11 +1,17 @@
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", true);
+// 에러 화면에 설정과 스택이 나가지 않도록 꺼 둬요. 개발할 때만 켜세요.
+ini_set("display_errors", false);
+
+function h($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
 
 
 $paymentKey = '';
 
-$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R'; 
+// TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 웹 루트 밖 설정 파일에서 읽으세요.
+$secretKey = getenv('TOSS_SECRET_KEY') ?: '{SECRET_KEY}';
 
 $url = 'https://api.tosspayments.com/v1/payments/' . $paymentKey;
 
@@ -50,20 +56,19 @@ $responseJson = json_decode($response);
     <?php
     if ($isSuccess) { ?>
         <h1>조회 성공</h1>
-        <p>결과 데이터 : <?php echo json_encode($responseJson, JSON_UNESCAPED_UNICODE); ?></p>
-        <p>orderName : <?php echo $responseJson->orderName ?></p>
-        <p>method : <?php echo $responseJson->method ?></p>
+        <p>orderName : <?php echo h($responseJson->orderName) ?></p>
+        <p>method : <?php echo h($responseJson->method) ?></p>
         <p>
-            <?php if($responseJson->method === "카드") { echo $responseJson->card->number;} ?>
-            <?php if($responseJson->method === "가상계좌") { echo $responseJson->virtualAccount->accountNumber;} ?>
-            <?php if($responseJson->method === "계좌이체") { echo $responseJson->transfer->bank;} ?>
-            <?php if($responseJson->method === "휴대폰") { echo $responseJson->mobilePhone->customerMobilePhone;} ?>
+            <?php if($responseJson->method === "카드") { echo h($responseJson->card->number);} ?>
+            <?php if($responseJson->method === "가상계좌") { echo h($responseJson->virtualAccount->accountNumber);} ?>
+            <?php if($responseJson->method === "계좌이체") { echo h($responseJson->transfer->bank);} ?>
+            <?php if($responseJson->method === "휴대폰") { $phone = (string) $responseJson->mobilePhone->customerMobilePhone; echo h(substr($phone, 0, 3) . '****' . substr($phone, -4));} ?>
         </p>
         <?php
     } else { ?>
         <h1>조회 실패</h1>
-        <p>에러메시지 : <?php echo $responseJson->message ?></p>
-        <span>에러코드: <?php echo $responseJson->code ?></span>
+        <p>에러메시지 : <?php echo h($responseJson->message) ?></p>
+        <span>에러코드: <?php echo h($responseJson->code) ?></span>
         <?php
     }
     ?>

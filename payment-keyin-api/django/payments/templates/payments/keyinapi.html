@@ -14,10 +14,12 @@
 <body>
     
 <section>
-    <h1>결제 성공</h1>
+    <h1>{% if code %}결제 실패{% else %}결제 성공{% endif %}</h1>
     
-    <p>결과 데이터 : </p>
-    <pre>{{ res.text }}</pre>
+    {% if code %}
+    <p>에러코드 : {{ code }}</p>
+    <p>에러메시지 : {{ message }}</p>
+    {% endif %}
     <br><br>
     <pre>
       method = {{ method }}

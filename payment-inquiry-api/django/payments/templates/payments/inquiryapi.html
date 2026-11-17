@@ -14,10 +14,18 @@
 <body>
     
 <section>
-    <h1>조회 성공</h1>
+    <h1>{% if code %}조회 실패{% else %}조회 성공{% endif %}</h1>
     
-    <p>결과 데이터 : </p>
-    <pre>{{ res.text }}</pre>
+    {% if code %}
+    <p>에러코드 : {{ code }}</p>
+    <p>에러메시지 : {{ message }}</p>
+    {% else %}
+    <p>orderId : {{ orderId }}</p>
+    <p>orderName : {{ orderName }}</p>
+    <p>status : {{ status }}</p>
+    <p>method : {{ method }}</p>
+    <p>totalAmount : {{ totalAmount }}</p>
+    {% endif %}
     <br><br>
     
 </section> 

@@ -4,10 +4,11 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+// TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 비밀 저장소에서 읽으세요.
+var secretKey = process.env.TOSS_SECRET_KEY || "{SECRET_KEY}";
 
 router.get("/inquiry", function (req, res) {
-  let paymentKey = "2WkABYDxNyJQbgMGZzorzQbpRBkAvVl5E1em4dKva7XL9njP";
+  let paymentKey = "";
 
   got("https://api.tosspayments.com/v1/payments/" + paymentKey, {
     headers: {

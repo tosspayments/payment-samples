@@ -26,7 +26,10 @@
     </section>
     <section class="section ">
         <div class="container">
-            <button class="button is-link" onclick="location.href='/payments/vaapi';">가상계좌(API)</button>
+            <form method="post" action="/payments/vaapi">
+                {% csrf_token %}
+                <button class="button is-link" type="submit">가상계좌(API)</button>
+            </form>
         </div>
     </section>
 </body>

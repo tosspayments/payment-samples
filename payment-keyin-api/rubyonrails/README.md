@@ -8,7 +8,7 @@ Ruby on Rails 환경을 먼저 준비해주세요.
 
 ## 실행하기
 
-1. `/app/controllers/payment_controller.rb` 파일에 테스트하고 싶은 `paymentKey`, `secretKey`를 넣으세요.
+1. `/app/controllers/payment_controller.rb` 파일에 테스트하고 싶은 `paymentKey` 를 넣고, 시크릿 키는 `TOSS_SECRET_KEY` 환경 변수로 넣으세요.
 
 2. `/app` 폴더와 아래 기본 설명을 참조해서 기존 프로젝트에 샘플 코드를 추가하세요.
 

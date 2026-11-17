@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
     # add code
-    root "home#index"
+    root "payment#inquiryapi"
   
     get 'payment/inquiryapi' => 'payment#inquiryapi'
     

@@ -11,14 +11,13 @@
     <section>
         <%  if (isSuccess) { %>
         <h1>결제 성공</h1>
-        <p>결과 데이터 : <%= JSON.stringify(responseJson) %></p>
         <p>orderName : <%= responseJson.orderName %></p>
         <p>method : <%= responseJson.method %></p>
         <p>
             <% if(responseJson.method === "카드") { %> <%= responseJson.card.number %> <% } %>
             <% if(responseJson.method === "가상계좌") { %> <%= responseJson.virtualAccount.accountNumber %> <% } %>
             <% if(responseJson.method === "계좌이체") { %> <%= responseJson.transfer.bank %> <% } %>
-            <% if(responseJson.method === "휴대폰") { %> <%= responseJson.mobilePhone.customerMobilePhone %> <% } %>
+            <% if(responseJson.method === "휴대폰") { %> <%= String(responseJson.mobilePhone.customerMobilePhone).slice(0, 3) + "****" + String(responseJson.mobilePhone.customerMobilePhone).slice(-4) %> <% } %>
         </p>
 
         <% } else { %>

@@ -11,23 +11,25 @@
 <body>
     
 <section>
+    <% if @Response["code"] %>
+    <h1>가상계좌 발급 실패</h1>
+    <p>에러코드 : <%= @Response["code"] %></p>
+    <p>에러메시지 : <%= @Response["message"] %></p>
+    <% else %>
     <h1>결제 성공</h1>
-    
-    <p>결과 데이터 : </p>
-    <pre><%= JSON.pretty_generate(@Response) %></pre>
-    <br><br>
     
     <p>orderName : <%=@Response["orderName"]%></p>
     <p>method : <%=@Response["method"]%></p>
+    <p>virtualAccount -> accountNumber : <%= @Response.dig("virtualAccount", "accountNumber") %></p>
+    <p>virtualAccount -> bank : <%= @Response.dig("virtualAccount", "bank") %></p>
+    <% end %>
     <br><br>
     
-    <p>virtualAccount -> accountNumber : <%= @Response["virtualAccount"]["accountNumber"] %></p>
-    <p>virtualAccount -> bank : <%= @Response["virtualAccount"]["bank"] %></p>
     <br>
     
 </section> 
 
-<button class="button is-link" onclick="location.href='/payment/index';">돌아가기</button>
+<button class="button is-link" onclick="location.href='/payment/vaapi';">돌아가기</button>
     
 </body>
 </html>
