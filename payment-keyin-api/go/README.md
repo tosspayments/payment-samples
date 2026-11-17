@@ -11,7 +11,7 @@ Go 공식 웹사이트인 https://go.dev/dl/ 에서 해당 OS 버전의 Go 를 �
 
 ## 실행하기
 
-1. `keyin.go` 파일에 테스트하고 싶은 `paymentKey`, `secretKey`를 넣으세요.
+1. `keyin.go` 파일에 테스트하고 싶은 `paymentKey` 를 넣고, 시크릿 키는 `TOSS_SECRET_KEY` 환경 변수로 넣으세요.
 
 2. go 서버를 실행합니다.
 
@@ -19,4 +19,4 @@ Go 공식 웹사이트인 https://go.dev/dl/ 에서 해당 OS 버전의 Go 를 �
    $ > go run keyin.go  # 서버 실행
    ```
 
-3. http://localhost:9090 에서 샘플 프로젝트를 확인하세요.
+3. http://localhost:9090/keyin 에서 샘플 프로젝트를 확인하세요.

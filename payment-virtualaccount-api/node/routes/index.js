@@ -4,9 +4,15 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "{SECRET_KEY}";
+// TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 비밀 저장소에서 읽으세요.
+var secretKey = process.env.TOSS_SECRET_KEY || "{SECRET_KEY}";
 
+// 가상계좌 발급은 버튼을 눌러 POST 로 요청할 때만 실행해요.
 router.get("/virtual_account", function (req, res) {
+  res.send('<form method="post" action="/virtual_account"><button type="submit">가상계좌 발급</button></form>');
+});
+
+router.post("/virtual_account", function (req, res) {
   let path = "http://127.0.0.1/Samples";
 
   let orderId = "virtualaccount-" + uuid();

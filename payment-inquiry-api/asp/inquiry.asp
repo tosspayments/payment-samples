@@ -11,6 +11,7 @@
 call initCodecs
 paymentKey	= ""
 
+' TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 웹 루트 밖 설정에서 읽으세요.
 secretkey = "{SECRET_KEY}:"
 
 url = "https://api.tosspayments.com/v1/payments/" & paymentKey
@@ -42,21 +43,20 @@ httpCode = req.status
     <%
         if httpCode=200  then %>
         <h1>조회 성공</h1>
-        <p>결과 데이터 : <%= req.responseText %></p>
-        <p>orderName : <%= myJSON.orderName%></p>
-        <p>method : <%= myJSON.method%></p>
+        <p>orderName : <%= Server.HTMLEncode(myJSON.orderName & "") %></p>
+        <p>method : <%= Server.HTMLEncode(myJSON.method & "") %></p>
         <p>
-            <% if myJSON.method = "카드"  then response.write myJSON.card.number end if %>
-            <% if myJSON.method = "가상계좌"  then response.write myJSON.virtualAccount.accountNumber end if %>
-            <% if myJSON.method = "계좌이체"  then response.write myJSON.transfer.bank end if %>
-            <% if myJSON.method = "휴대폰"  then response.write myJSON.mobilePhone.customerMobilePhone end if %>
+            <% if myJSON.method = "카드"  then response.write Server.HTMLEncode(myJSON.card.number & "") end if %>
+            <% if myJSON.method = "가상계좌"  then response.write Server.HTMLEncode(myJSON.virtualAccount.accountNumber & "") end if %>
+            <% if myJSON.method = "계좌이체"  then response.write Server.HTMLEncode(myJSON.transfer.bank & "") end if %>
+            <% if myJSON.method = "휴대폰"  then response.write Server.HTMLEncode(Left(myJSON.mobilePhone.customerMobilePhone & "", 3) & "****" & Right(myJSON.mobilePhone.customerMobilePhone & "", 4)) end if %>
             
         </p>
        <%
      else  %>
         <h1>조회 실패</h1>
-        <p>에러메시지 :  <%= myJSON.message%></p>
-        <span>에러코드:  <%= myJSON.code%></span>
+        <p>에러메시지 :  <%= Server.HTMLEncode(myJSON.message & "") %></p>
+        <span>에러코드:  <%= Server.HTMLEncode(myJSON.code & "") %></span>
        <%
     end if
     %>

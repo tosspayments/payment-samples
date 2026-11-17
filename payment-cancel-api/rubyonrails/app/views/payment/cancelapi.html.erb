@@ -11,20 +11,22 @@
 <body>
     
 <section>
+    <% if @Response["code"] %>
+    <h1>취소 실패</h1>
+    <p>에러코드 : <%= @Response["code"] %></p>
+    <p>에러메시지 : <%= @Response["message"] %></p>
+    <% else %>
     <h1>취소 성공</h1>
-    
-    <p>결과 데이터 : </p>
-    <pre><%= JSON.pretty_generate(@Response) %></pre>
-    <br><br>
     
     <p>orderName : <%=@Response["orderName"]%></p>
     <p>method : <%=@Response["method"]%></p>
-    <p>cancels -> cancelReason : <%=@Response["cancels"]["cancelReason"]%></p>
+    <p>cancels -> cancelReason : <%=@Response.fetch("cancels", nil)&.first&.dig("cancelReason")%></p>
+    <% end %>
     <br><br>
     
 </section> 
 
-<button class="button is-link" onclick="location.href='/payment/index';">돌아가기</button>
+<button class="button is-link" onclick="location.href='/payment/cancelapi';">돌아가기</button>
     
 </body>
 </html>

@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "{DJANGO_SECRET_KEY}")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# 운영 환경에서는 False 로 두세요.
-DEBUG = True
+# 기본값은 False 예요. 개발할 때만 DJANGO_DEBUG=true 로 켜세요.
+DEBUG = os.environ.get("DJANGO_DEBUG", "false") == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -85,7 +85,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "postgres",
+        # TODO: DB 비밀번호는 환경 변수로 넣으세요.
+        "PASSWORD": os.environ.get("DJANGO_DB_PASSWORD", ""),
         "HOST": "db",
         "PORT": 5432,
     }

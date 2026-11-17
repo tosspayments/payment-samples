@@ -4,7 +4,8 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "{SECRET_KEY}";
+// TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 비밀 저장소에서 읽으세요.
+var secretKey = process.env.TOSS_SECRET_KEY || "{SECRET_KEY}";
 
 router.get("/inquiry", function (req, res) {
   let paymentKey = "";

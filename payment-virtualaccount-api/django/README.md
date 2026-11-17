@@ -8,9 +8,11 @@ Django를 이용한 가상계좌 발급 샘플 코드입니다.
 
 ## 실행하기
 
-1. `/payments/views.py` 파일에 테스트하고 싶은 `paymentKey`, `secretKey`를 넣으세요.
+1. `/payments/views.py` 파일에 테스트하고 싶은 `paymentKey` 를 넣고, 시크릿 키는 `TOSS_SECRET_KEY` 환경 변수로 넣으세요.
 
 2. `/payments` 앱과 아래 설명을 참조해서 기존 프로젝트에 샘플 코드를 추가하세요.
+
+3. 개발할 때는 `DJANGO_DEBUG=true` 로 실행하세요. 기본값은 `DEBUG = False` 예요.
 
 ## 기본 설명
 

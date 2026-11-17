@@ -11,22 +11,24 @@
 <body>
     
 <section>
+    <% if @Response["code"] %>
+    <h1>결제 실패</h1>
+    <p>에러코드 : <%= @Response["code"] %></p>
+    <p>에러메시지 : <%= @Response["message"] %></p>
+    <% else %>
     <h1>결제 성공</h1>
-    
-    <p>결과 데이터 : </p>
-    <pre><%= JSON.pretty_generate(@Response) %></pre>
-    <br><br>
     
     <p>orderName : <%=@Response["orderName"]%></p>
     <p>method : <%=@Response["method"]%></p>
+    <p>card -> number : <%= @Response.dig("card", "number") %></p>
+    <% end %>
     <br><br>
     
-    <p>card -> number : <%= @Response["card"]["number"] %></p>
     <br>
     
 </section> 
 
-<button class="button is-link" onclick="location.href='/payment/index';">돌아가기</button>
+<button class="button is-link" onclick="location.href='/payment/keyinapi';">돌아가기</button>
     
 </body>
 </html>

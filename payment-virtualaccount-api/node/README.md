@@ -13,7 +13,7 @@ $ v16.15.1
 
 ## 실행하기
 
-1. `/routes/index.js` 파일에 테스트하고 싶은 `paymentKey`, `secretKey`를 넣으세요.
+1. `/routes/index.js` 파일에 테스트하고 싶은 `paymentKey` 를 넣고, 시크릿 키는 `TOSS_SECRET_KEY` 환경 변수로 넣으세요.
 
 2. 의존성 패키지를 다운로드하고 서버를 실행합니다.
 

@@ -17,6 +17,10 @@
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
 <%
+  /* 결제 취소는 가맹점 관리자가 버튼을 눌러 POST 로 요청할 때만 실행해요. */
+  /* TODO: 가맹점 관리자 로그인 여부와 권한을 확인하세요. */
+  /* TODO: 폼에 CSRF 토큰을 넣고 여기서 검증하세요. */
+  if (!"POST".equals(request.getMethod())) { %><form method="post"><button type="submit">결제 취소</button></form><% return; }
 
   String paymentKey = "";
   String cancelReason = "고객 변심";
@@ -29,7 +33,7 @@
   String accountNumber = "12345678901234";
   String holderName = "홍길동";
   
-  String secretKey = "{SECRET_KEY}:";
+  /* TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 웹 루트 밖 설정에서 읽으세요. */ String secretKey = (System.getenv("TOSS_SECRET_KEY") != null ? System.getenv("TOSS_SECRET_KEY") : "{SECRET_KEY}") + ":";
   
   Encoder encoder = Base64.getEncoder(); 
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -39,7 +43,7 @@
   
   HttpURLConnection connection = (HttpURLConnection) url.openConnection();
   connection.setRequestProperty("Authorization", authorizations);
-  connection.setRequestProperty("Content-Type", "application/json");
+  connection.setRequestProperty("Content-Type", "application/json"); /* 같은 요청이 두 번 처리되지 않도록 요청마다 고유한 멱등 키를 보내요. */ connection.setRequestProperty("Idempotency-Key", java.util.UUID.randomUUID().toString());
   connection.setRequestMethod("POST");
   connection.setDoOutput(true);
 
@@ -68,6 +72,13 @@
   responseStream.close();
 %>
 
+<%!
+  /* 응답 값을 HTML 에 넣기 전에 이스케이프해요. */
+  private static String h(Object value) {
+    if (value == null) return "";
+    return value.toString().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+  }
+%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -79,15 +90,14 @@
     <section>
       <% if (isSuccess) { %>
       <h1>취소 성공</h1>
-      <p>결과 데이터 : <%= jsonObject.toJSONString() %></p>
-      <p>orderName : <%= jsonObject.get("orderName") %></p>
-      <p>method : <%= jsonObject.get("method") %></p>
-      <p>cancels -> cancelReason : <% JSONArray cancels = ((JSONArray)jsonObject.get("cancels")); JSONObject cancel = (JSONObject) cancels.iterator().next(); %> <%=cancel.get("cancelReason") %></p>
+      <p>orderName : <%= h(jsonObject.get("orderName")) %></p>
+      <p>method : <%= h(jsonObject.get("method")) %></p>
+      <p>cancels -> cancelReason : <% JSONArray cancels = ((JSONArray)jsonObject.get("cancels")); JSONObject cancel = (JSONObject) cancels.iterator().next(); %> <%= h(cancel.get("cancelReason")) %></p>
 
       <%} else { %>
       <h1>취소 실패</h1>
-      <p><%= jsonObject.get("message") %></p>
-      <span>에러코드: <%= jsonObject.get("code") %></span>
+      <p><%= h(jsonObject.get("message")) %></p>
+      <span>에러코드: <%= h(jsonObject.get("code")) %></span>
       <% } %>
     </section>
   </body>

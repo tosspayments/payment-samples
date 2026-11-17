@@ -7,6 +7,13 @@
 <!--#include file="base64.asp"--> 
 
 <%
+' 가상계좌 발급은 버튼을 눌러 POST 로 요청할 때만 실행해요.
+If Request.ServerVariables("REQUEST_METHOD") <> "POST" Then
+%>
+<form method="post"><button type="submit">가상계좌 발급</button></form>
+<%
+  Response.End
+End If
 	
 call initCodecs
 
@@ -28,16 +35,28 @@ useEscrow ="false"
 types = "소득공제"
 registrationNumber  = "01000001234"
 
+' TODO: 시크릿 키는 소스에 적지 말고 환경 변수나 웹 루트 밖 설정에서 읽으세요.
 secretkey = "{SECRET_KEY}:"
 
 url = "https://api.tosspayments.com/v1/virtual-accounts"
 
-data = "{""orderId"" : """ & orderId & """, ""amount"" : " & amount & "," &_
-    """customerEmail"" : """ & customerEmail & """, ""customerName"" : """ & customerName & """," &_
-    """orderName"" : """ & orderName & """, ""bank"" : """ & bank & """," &_
-    """validHours"" : """ & validHours & """, ""virtualAccountCallbackUrl"" : """ & virtualAccountCallbackUrl & """," &_
-    """customerMobilePhone"" : """ & customerMobilePhone & """, ""useEscrow"" : """ & useEscrow & """," &_
-    """cashReceipt"" : {""type"" : """ & types &""",""registrationNumber"" : """ & registrationNumber & """}}"
+' 요청 본문은 문자열을 이어 붙이지 말고 JSON 으로 직렬화하세요.
+set cashReceipt = JSON.parse("{}")
+cashReceipt.set "type", types
+cashReceipt.set "registrationNumber", registrationNumber
+set body = JSON.parse("{}")
+body.set "orderId", orderId
+body.set "amount", amount
+body.set "customerEmail", customerEmail
+body.set "customerName", customerName
+body.set "orderName", orderName
+body.set "bank", bank
+body.set "validHours", validHours
+body.set "virtualAccountCallbackUrl", virtualAccountCallbackUrl
+body.set "customerMobilePhone", customerMobilePhone
+body.set "useEscrow", useEscrow
+body.set "cashReceipt", cashReceipt
+data = JSON.stringify(body)
 
 
 authorization = "Basic " & base64Encode(secretkey)
@@ -68,16 +87,15 @@ httpCode = req.status
     <%
         if httpCode=200  then %>
         <h1>결제 성공</h1>
-        <p>결과 데이터 : <%= req.responseText %></p>
-        <p>orderName : <%= myJSON.orderName%></p>
-        <p>method : <%= myJSON.method%></p>
-        <p>virtualAccount -> accountNumber :  <%= myJSON.virtualAccount.accountNumber%></p>
-        <p>virtualAccount -> bank :  <%= myJSON.virtualAccount.bank%></p>
+        <p>orderName : <%= Server.HTMLEncode(myJSON.orderName & "") %></p>
+        <p>method : <%= Server.HTMLEncode(myJSON.method & "") %></p>
+        <p>virtualAccount -> accountNumber :  <%= Server.HTMLEncode(myJSON.virtualAccount.accountNumber & "") %></p>
+        <p>virtualAccount -> bank :  <%= Server.HTMLEncode(myJSON.virtualAccount.bank & "") %></p>
        <%
      else  %>
         <h1>결제 실패</h1>
-        <p>에러메시지 :  <%= myJSON.message%></p>
-        <span>에러코드:  <%= myJSON.code%></span>
+        <p>에러메시지 :  <%= Server.HTMLEncode(myJSON.message & "") %></p>
+        <span>에러코드:  <%= Server.HTMLEncode(myJSON.code & "") %></span>
        <%
     end if
     %>
