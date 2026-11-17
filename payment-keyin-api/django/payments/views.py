@@ -13,7 +13,7 @@ def keyinapi(request):
   datetime = int(time.time())
   
   url = "https://api.tosspayments.com/v1/payments/key-in"
-  secertkey = "test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y"
+  secertkey = "{SECRET_KEY}"
   userpass = secertkey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   

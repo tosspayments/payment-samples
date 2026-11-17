@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-const secretKey string = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+const secretKey string = "{SECRET_KEY}"
 
 // Approval -
 type Approval struct {

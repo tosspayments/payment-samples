@@ -29,7 +29,7 @@
   String accountNumber = "12345678901234";
   String holderName = "홍길동";
   
-  String secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:";
+  String secretKey = "{SECRET_KEY}:";
   
   Encoder encoder = Base64.getEncoder(); 
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));

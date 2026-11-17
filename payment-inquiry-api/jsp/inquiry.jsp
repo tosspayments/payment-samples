@@ -2,7 +2,7 @@
 import="java.net.HttpURLConnection"%> <%@ page import="java.net.URL" %> <%@ page import="org.json.simple.JSONObject" %> <%@ page import="org.json.simple.JSONArray" %> <%@ page
 import="org.json.simple.parser.JSONParser" %> <%@ page import="org.json.simple.parser.ParseException" %> <%@ page import="java.io.OutputStream" %> <%@ page import="java.io.InputStream" %> <%@ page
 import="java.io.InputStreamReader" %> <%@ page import="java.io.Reader" %> <%@ page import="java.nio.charset.StandardCharsets" %> <% String paymentKey = ""; String secretKey =
-"test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"; Encoder encoder = Base64.getEncoder(); byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8")); String authorizations = "Basic "+ new
+"{SECRET_KEY}:"; Encoder encoder = Base64.getEncoder(); byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8")); String authorizations = "Basic "+ new
 String(encodedBytes, 0, encodedBytes.length); URL url = new URL("https://api.tosspayments.com/v1/payments/" + paymentKey); HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 connection.setRequestProperty("Authorization", authorizations); connection.setRequestProperty("Content-Type", "application/json"); connection.setRequestMethod("GET"); int code =
 connection.getResponseCode(); boolean isSuccess = code == 200 ? true : false; InputStream responseStream = isSuccess? connection.getInputStream(): connection.getErrorStream(); Reader reader = new

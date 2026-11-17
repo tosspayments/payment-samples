@@ -4,7 +4,7 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+var secretKey = "{SECRET_KEY}";
 
 router.get("/keyin", function (req, res) {
   let orderId = "keyin-" + uuid();
@@ -18,8 +18,6 @@ router.get("/keyin", function (req, res) {
   let customerEmail = "customer@email.com";
   let customerName = "박토스";
   let orderName = "토스 키인 결제";
-
-  console.log(cardNumber);
 
   got
     .post("https://api.tosspayments.com/v1/payments/key-in", {
@@ -51,7 +49,7 @@ router.get("/keyin", function (req, res) {
     .catch(function (error) {
       res.render("keyin", {
         isSuccess: false,
-        rresponseJson: error.response.body,
+        responseJson: error.response.body,
       });
     });
 });

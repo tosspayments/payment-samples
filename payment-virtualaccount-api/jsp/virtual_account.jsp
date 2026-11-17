@@ -4,7 +4,7 @@ import="org.json.simple.parser.ParseException" %> <%@ page import="java.io.Outpu
 import="java.io.Reader" %> <%@ page import="java.nio.charset.StandardCharsets" %> <% String path = "http://127.0.0.1/Samples"; String orderId = "virtualaccount-" +
 String.valueOf(System.currentTimeMillis()); String amount = "50000"; String customerEmail = "customer@email.com"; String customerName = "박토스"; String orderName = "토스 가상계좌 결제"; String bank =
 "국민"; String validHours = "72"; String virtualAccountCallbackUrl = path + "/va_callback.jsp"; String customerMobilePhone = "01000001234"; String useEscrow = "false"; String type = "소득공제"; String
-registrationNumber = "01000001234"; String secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"; Encoder encoder = Base64.getEncoder(); byte[] encodedBytes =
+registrationNumber = "01000001234"; String secretKey = "{SECRET_KEY}:"; Encoder encoder = Base64.getEncoder(); byte[] encodedBytes =
 encoder.encode(secretKey.getBytes("UTF-8")); String authorizations = "Basic "+ new String(encodedBytes, 0, encodedBytes.length); URL url = new URL("https://api.tosspayments.com/v1/virtual-accounts");
 HttpURLConnection connection = (HttpURLConnection) url.openConnection(); connection.setRequestProperty("Authorization", authorizations); connection.setRequestProperty("Content-Type",
 "application/json"); connection.setRequestMethod("POST"); connection.setDoOutput(true); JSONObject obj = new JSONObject(); obj.put("orderId", orderId); obj.put("amount", amount);

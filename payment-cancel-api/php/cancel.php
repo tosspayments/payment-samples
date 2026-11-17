@@ -13,7 +13,7 @@ $bank = "신한";
 $accountNumber = "12345678901234";
 $holderName = "홍길동";
 
-$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R'; 
+$secretKey = '{SECRET_KEY}'; 
 
 $url = 'https://api.tosspayments.com/v1/payments/'. $paymentKey .'/cancel';
 

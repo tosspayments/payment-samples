@@ -17,7 +17,7 @@ bank = "신한"
 accountNumber = "12345678901234"
 holderName = "홍길동"
 
-secretkey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"
+secretkey = "{SECRET_KEY}:"
 
 url = "https://api.tosspayments.com/v1/payments/" & paymentKey & "/cancel"
 

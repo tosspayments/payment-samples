@@ -10,7 +10,7 @@ import (
 
 var paymentKey string = ""
 
-const secretKey string = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+const secretKey string = "{SECRET_KEY}"
 
 func basicAuth(username, password string) string {
 	auth := username + ":" + password

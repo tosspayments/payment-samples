@@ -2,7 +2,7 @@ class PaymentController < ApplicationController
 
   def cancelapi
     datetime = Time.now.to_i
-    paymentKey = "q2Dv9ZPM7zXLkKEypNArWkaKzB9KArlmeaxYG5R4Jo6bnOwB"
+    paymentKey = ""
       
     #부분 취소에서만 사용
     cancelAmount = 300
@@ -14,7 +14,7 @@ class PaymentController < ApplicationController
    
     options = {
       headers: {
-        Authorization: "Basic " + Base64.strict_encode64("test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y:"),
+        Authorization: "Basic " + Base64.strict_encode64("{SECRET_KEY}:"),
         "Content-Type": "application/json"
       },
       body: {          

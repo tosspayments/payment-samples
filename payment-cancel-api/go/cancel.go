@@ -12,7 +12,7 @@ import (
 
 var paymentKey string = ""
 
-const secretKey string = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+const secretKey string = "{SECRET_KEY}"
 
 // Cancellation -
 type Cancellation struct {

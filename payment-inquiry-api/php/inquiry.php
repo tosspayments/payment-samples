@@ -5,7 +5,7 @@ ini_set("display_errors", true);
 
 $paymentKey = '';
 
-$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R'; 
+$secretKey = '{SECRET_KEY}'; 
 
 $url = 'https://api.tosspayments.com/v1/payments/' . $paymentKey;
 

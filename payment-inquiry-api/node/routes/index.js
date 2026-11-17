@@ -4,10 +4,10 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+var secretKey = "{SECRET_KEY}";
 
 router.get("/inquiry", function (req, res) {
-  let paymentKey = "2WkABYDxNyJQbgMGZzorzQbpRBkAvVl5E1em4dKva7XL9njP";
+  let paymentKey = "";
 
   got("https://api.tosspayments.com/v1/payments/" + paymentKey, {
     headers: {

@@ -13,7 +13,7 @@ def inquiryapi(request):
   paymentKey = ""
   
   url = "https://api.tosspayments.com/v1/payments/"
-  secertkey = "test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y"
+  secertkey = "{SECRET_KEY}"
   userpass = secertkey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   

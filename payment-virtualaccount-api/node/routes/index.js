@@ -4,7 +4,7 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+var secretKey = "{SECRET_KEY}";
 
 router.get("/virtual_account", function (req, res) {
   let path = "http://127.0.0.1/Samples";
